@@ -181,11 +181,20 @@ struct UploadView: View {
                                     }
 
                                     Button(action: {
-            
-                                        Task{
-                                            await vm.uploadVideo(fileURL: selectedVideoURL!,createrID: profile.creatorId,createrName: profile.name,description: videoDiscription,title: videoTitle)
-    
+                                        
+                                        if(selectedVideoURL != nil)
+                                        {
+                                            guard let videoURL = selectedVideoURL else {
+                                                return
+                                            }
+                                            
+                                            Task{
+                                                await vm.uploadVideo(fileURL: videoURL,createrID: profile.creatorId,createrName: profile.name,description: videoDiscription,title: videoTitle)
+
+                                            }
+                                            
                                         }
+                                                                   
                                     }) {
 
                                         HStack(spacing: 8) {

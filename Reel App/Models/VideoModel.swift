@@ -26,6 +26,46 @@ struct VideoData: Decodable {
     let metadata: VideoMetadata?
     
     let playbackIds: [PlaybackID]?
+    
+    func toReelVideo() -> ReelVideo? {
+        
+        guard
+            status.lowercased() == "ready",
+            let playbackID = playbackIds?.first?.id
+        else {
+            return nil
+        }
+
+        return ReelVideo(
+            id: id,
+            
+            playbackID: playbackID,
+            
+            title:
+                metadata?.title
+                ?? title
+                ?? "Untitled Video",
+            
+            description:
+                metadata?.description
+                ?? "",
+            
+            creatorID:
+                metadata?.creatorID
+                ?? "",
+            
+            creatorName:
+                metadata?.creatorName
+                ?? "Unknown Creator",
+            
+            thumbnail: thumbnail,
+            
+            duration: duration,
+            
+            aspectRatio: aspectRatio
+        )
+    }
+    
 }
 
 struct VideoMetadata: Decodable {
@@ -69,46 +109,11 @@ struct ReelVideo: Identifiable {
     let duration: String?
     
     let aspectRatio: String?
+    
+    
 }
 
 extension VideoData {
 
-    func toReelVideo() -> ReelVideo? {
-        
-        guard
-            status.lowercased() == "ready",
-            let playbackID = playbackIds?.first?.id
-        else {
-            return nil
-        }
-
-        return ReelVideo(
-            id: id,
-            
-            playbackID: playbackID,
-            
-            title:
-                metadata?.title
-                ?? title
-                ?? "Untitled Video",
-            
-            description:
-                metadata?.description
-                ?? "",
-            
-            creatorID:
-                metadata?.creatorID
-                ?? "",
-            
-            creatorName:
-                metadata?.creatorName
-                ?? "Unknown Creator",
-            
-            thumbnail: thumbnail,
-            
-            duration: duration,
-            
-            aspectRatio: aspectRatio
-        )
-    }
+    
 }

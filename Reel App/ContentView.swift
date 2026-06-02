@@ -22,7 +22,7 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(.dark)
-        .onChange(of: selectedTab) { old, new in
+        .onChange(of: selectedTab) { old, _ in
             previousTab = old
         }
     }

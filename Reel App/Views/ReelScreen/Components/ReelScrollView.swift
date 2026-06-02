@@ -20,7 +20,7 @@ struct ReelScrollView: View {
                         ForEach(
                             Array(viewModel.video.enumerated()),
                             id: \.element.id
-                        ) { index, video in
+                        ) { _, video in
                             ReelCardView(
                                     video: video,
                                     isActive: isActive(video),

@@ -4,13 +4,13 @@ import Combine
 @MainActor
 final class ReelsViewModel: ObservableObject {
 
-    @Published var currentIndex: Int? = nil
+    @Published var currentIndex: Int?
     @Published var currentVideoId: String?
     
     @Published var video: [ReelVideo] = []
     @Published var loadingState: LoadingState = .idle
     @Published var isTabActive: Bool = true
-    @Published var scrollToIndex: Int? = nil
+    @Published var scrollToIndex: Int?
     @Published var isRefreshing = false
 
     private let service: ReelViewServiceProtocal
