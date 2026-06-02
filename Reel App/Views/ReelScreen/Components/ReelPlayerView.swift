@@ -1,6 +1,6 @@
 import SwiftUI
 import AVKit
-import FastPixPlayerSDK
+import FastPixPlayerSDKTest
 
 struct ReelPlayerView: UIViewControllerRepresentable {
 
