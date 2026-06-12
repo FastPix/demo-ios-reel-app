@@ -8,7 +8,6 @@ final class UserProfileManager: ObservableObject {
     @Published var creatorId: String
     @Published var name: String
 
-
     private let creatorIdKey = "creator_id"
     private let nameKey = "creator_name"
 

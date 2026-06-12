@@ -110,10 +110,4 @@ struct ReelVideo: Identifiable {
     
     let aspectRatio: String?
     
-    
-}
-
-extension VideoData {
-
-    
 }

@@ -1,24 +1,21 @@
 # Reel App - FastPix iOS Player SDK Demo
  
-A modern iOS demonstration application showcasing the **[FastPix iOS Player SDK](https://github.com/FastPix/iOS-player)** and **[FastPix iOS Uploads SDK](https://github.com/FastPix/iOS-Uploads)**. This app demonstrates how to integrate professional video playback and upload capabilities into iOS applications with a TikTok-style reel feed interface.
+A modern iOS demonstration application showcasing the **[FastPix iOS Player SDK](https://github.com/FastPix/iOS-player)**. This app demonstrates how to integrate professional video playback into iOS applications with a TikTok-style reel feed interface.
  
 ## Overview
  
-Reel App is a **reference implementation** for developers looking to integrate FastPix's video streaming and upload solutions into their iOS applications. It features:
+Reel App is a **reference implementation** for developers looking to integrate FastPix's video streaming into their iOSapplications. It features:
  
 - **Video Streaming**: High-performance video playback using the FastPix iOS Player SDK
-- **Video Upload**: Direct video uploads with progress tracking using the FastPix iOS Uploads SDK
 - **Social-style Feed**: Infinite scroll reel feed similar to popular social media apps
 - **Lifecycle-aware Playback**: Automatic pause/resume when switching tabs or backgrounding the app
 - **Video Metadata**: Display creator information, titles, and descriptions
-- **User Profiles**: Persistent creator profile management with auto-generated avatars
  
 ## Features
  
 ### Player Features
 - Full-screen vertical reel feed with smooth scroll snapping
 - Auto-play on scroll with loop enabled
-- Pull-to-refresh reel feed
 - Error handling and retry support
 - Loading and empty state screens
  
@@ -35,9 +32,6 @@ Reel App is a **reference implementation** for developers looking to integrate F
  
 - **Video Playback**:
   - `FastPixPlayerSDK` (`ios-player` v1.0.0) – FastPix Player SDK via Swift Package Manager
- 
-- **Video Upload**:
-  - `fp_swift_upload_sdk` (`ios-uploads` v1.0.2) – FastPix Uploads SDK via Swift Package Manager
  
 - **Image Loading**:
   - `SDWebImage` v5.21.7 – Async image loading
@@ -111,13 +105,6 @@ https://github.com/FastPix/iOS-player
 - Select version **1.0.0** (Up to Next Major)
 - Add the `FastPixPlayerSDK` library to the `Reel App` target
  
-#### FastPix iOS Uploads SDK
-```
-https://github.com/FastPix/iOS-Uploads
-```
-- Select version **1.0.2** (Up to Next Major)
-- Add the `fp_swift_upload_sdk` library to the `Reel App` target
- 
 #### SDWebImage
 ```
 https://github.com/SDWebImage/SDWebImage
@@ -168,7 +155,7 @@ xcodebuild -project "Reel App.xcodeproj" \
 ## Troubleshooting
  
 ### Swift Package Resolution Fails
-**Problem**: Xcode cannot resolve `FastPixPlayerSDK` or `fp_swift_upload_sdk`
+**Problem**: Xcode cannot resolve `FastPixPlayerSDK`
  
 **Solution**:
 1. Ensure you have internet access and Xcode has permission to access GitHub
@@ -183,9 +170,6 @@ xcodebuild -project "Reel App.xcodeproj" \
 2. Ensure videos in your FastPix account have `status: ready`
 3. Check network connectivity on the device/simulator
  
-### Upload Fails with 401 Unauthorized
-**Problem**: Upload returns a 401 error
- 
 **Solution**:
 1. Re-check `ACCESS_TOKEN_ID` and `SECRET_KEY` values in the Xcode scheme environment variables
 2. Confirm the credentials are active in your [FastPix Dashboard](https://fastpix.com)
@@ -198,21 +182,16 @@ xcodebuild -project "Reel App.xcodeproj" \
 - Set the deployment target to **iOS 16.0** or higher in Xcode project settings
 - Some features (e.g., `onChange` with two-parameter closure) require **iOS 17.0+**; use a device or simulator running iOS 17+
  
-### Video Processing Timeout
-**Problem**: After upload, the app shows "Video processing timeout"
- 
 **Solution**:
 1. The app polls up to 30 times with a 3-second interval (90 seconds total)
 2. For large videos, processing may take longer — check the video status directly in your FastPix Dashboard
-3. Verify network connectivity is stable throughout the upload and polling cycle
- 
+
 ## Reference Documentation
  
 - **FastPix Platform**: [fastpix.io](https://fastpix.com)
 - **FastPix Docs**: [fastpix.com/docs](https://fastpix.com/docs)
 - **iOS Player SDK – Installation Guide**: [fastpix.com/docs/ios-player/install-fastpix-ios-player](https://fastpix.com/docs/ios-player/install-fastpix-ios-player)
 - **iOS Player SDK**: [github.com/FastPix/iOS-player](https://github.com/FastPix/iOS-player)
-- **iOS Uploads SDK**: [github.com/FastPix/iOS-Uploads](https://github.com/FastPix/iOS-Uploads)
 - **SDWebImage**: [github.com/SDWebImage/SDWebImage](https://github.com/SDWebImage/SDWebImage)
 - **SDWebImageSwiftUI**: [github.com/SDWebImage/SDWebImageSwiftUI](https://github.com/SDWebImage/SDWebImageSwiftUI)
 - **SDWebImageSVGCoder**: [github.com/SDWebImage/SDWebImageSVGCoder](https://github.com/SDWebImage/SDWebImageSVGCoder)
@@ -229,4 +208,3 @@ For issues or questions:
 2. Review [FastPix Documentation](https://docs.fastpix.com)
 3. Open an issue on [GitHub Issues](https://github.com/FastPix/demo-ios-reel-app/issues)
 4. Contact FastPix support at [support@fastpix.com](mailto:support@fastpix.com)
-

@@ -1,7 +1,12 @@
 import Foundation
 
+struct VideoPage {
+    let videos: [ReelVideo]
+    let pagination: Pagination
+}
+
 protocol ReelViewServiceProtocal {
-    func fetchVideo() async throws -> [ReelVideo]
+    func fetchVideo(offset: Int) async throws -> VideoPage
 }
 
 final class ReelViewService: ReelViewServiceProtocal{
@@ -10,32 +15,30 @@ final class ReelViewService: ReelViewServiceProtocal{
     private init(){}
     
     // GET request to get Video Data
-    func fetchVideo() async throws -> [ReelVideo] {
-      
-        guard let url = URL(string: Constants.apiBaseUrl)else{
-           throw  URLError(.badURL)
-        }
-        
-        var request = URLRequest(url : url)
-        
-        request.setValue("Basic \(Constants.credentials)", forHTTPHeaderField: "Authorization")
-        
-        let (data,response) : (Data, URLResponse)
-        
-        do{
-            (data,response) = try await URLSession.shared.data(for: request)
+    func fetchVideo(offset: Int) async throws -> VideoPage {
 
-             let jsonString = String(data: data, encoding: .utf8)
-            
+        guard var components = URLComponents(string: Constants.apiBaseUrl) else {
+            throw URLError(.badURL)
         }
-        catch is CancellationError {
-            throw CancellationError()
+
+        components.queryItems = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "10")
+        ]
+
+        guard let url = components.url else {
+            throw URLError(.badURL)
         }
-        catch {
-            throw APIError.networkError(error)
-        }
-        
-        // convert into http response
+
+        var request = URLRequest(url: url)
+
+        request.setValue(
+            "Basic \(Constants.credentials)",
+            forHTTPHeaderField: "Authorization"
+        )
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode{
             //success
@@ -44,17 +47,16 @@ final class ReelViewService: ReelViewServiceProtocal{
             default: throw APIError.serverError(httpResponse.statusCode)
             }
         }
-        
-        let decoded: VideoListResponse
-        do {
-            decoded = try JSONDecoder().decode(VideoListResponse.self, from: data)
-        } catch {
-            throw APIError.decodingError(error)
-        }
+
+        let decoded = try JSONDecoder()
+            .decode(VideoListResponse.self, from: data)
 
         let videos = decoded.data.compactMap { $0.toReelVideo() }
 
-        return videos
+        return VideoPage(
+            videos: videos,
+            pagination: decoded.pagination
+        )
     }
     
 }
