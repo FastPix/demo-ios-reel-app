@@ -43,9 +43,9 @@ Before you start, make sure you have:
 The app lists and streams the videos in your FastPix workspace, so it authenticates with your account credentials:
 
 1. Sign up or log in to the [FastPix Dashboard](https://dashboard.fastpix.com).
-2. Copy your **Token ID** (Access Token) and **Secret Key**.
+2. Copy your **Token ID** (Access Token) and **Secret Key**. To generate your Access Token ID and Secret Key, see the [Basic authentication guide](https://fastpix.com/docs/getting-started/activate-your-account#generate-api-credentials)
 
-You will set these as environment variables in Step 3. Never commit real credentials to version control - keep them in the Xcode scheme or a secure secrets store.
+You will set these as environment variables in the [Configure your FastPix credentials](#configure-your-fastpix-credentials) section. Never commit real credentials to version control - keep them in the Xcode scheme or a secure secrets store.
 
 <br />
 
@@ -65,30 +65,38 @@ This project uses Swift Package Manager (SPM) for all dependencies. The packages
 Open `Reel App.xcodeproj`, then go to **File → Add Package Dependencies** and add each of the following packages:
 
 #### FastPix iOS Player SDK
+
 ```
 https://github.com/FastPix/iOS-player
 ```
+
 - Select version **1.0.0** (Up to Next Major)
 - Add the `FastPixPlayerSDK` library to the `Reel App` target
 
 #### SDWebImage
+
 ```
 https://github.com/SDWebImage/SDWebImage
 ```
+
 - Select version **5.21.7** (Up to Next Major)
 - Add the `SDWebImage` library to the `Reel App` target
 
 #### SDWebImageSVGCoder
+
 ```
 https://github.com/SDWebImage/SDWebImageSVGCoder
 ```
+
 - Select version **1.8.0** (Up to Next Major)
 - Add the `SDWebImageSVGCoder` library to the `Reel App` target
 
 #### SDWebImageSwiftUI
+
 ```
 https://github.com/SDWebImage/SDWebImageSwiftUI
 ```
+
 - Select version **3.1.4** (Up to Next Major)
 - Add the `SDWebImageSwiftUI` library to the `Reel App` target
 
@@ -149,6 +157,7 @@ If the feed shows "No ready videos found in your FastPix account" or a "Content 
 ## Tech stack
 
 ### Architecture & framework
+
 - **Language**: Swift
 - **UI framework**: SwiftUI
 - **Architecture pattern**: MVVM
@@ -158,20 +167,16 @@ If the feed shows "No ready videos found in your FastPix account" or a "Content 
 
 - **Video playback**:
   - `FastPixPlayerSDK` (`ios-player` v1.0.0) - FastPix Player SDK via Swift Package Manager
-
 - **Image loading**:
   - `SDWebImage` v5.21.7 - Async image loading
   - `SDWebImageSwiftUI` v3.1.4 - SwiftUI integration for SDWebImage
   - `SDWebImageSVGCoder` v1.8.0 - SVG image decoding (used for DiceBear avatars)
-
 - **Networking**:
   - `URLSession` - Native async/await HTTP client
-
 - **UI**:
   - `SwiftUI` - Declarative UI
   - `AVKit / AVFoundation` - Native video player integration
   - `PhotosUI` - System photo/video library picker
-
 - **State management**:
   - `Combine` - Reactive publishers
   - `@StateObject / @ObservableObject` - SwiftUI observable state
@@ -182,6 +187,7 @@ If the feed shows "No ready videos found in your FastPix account" or a "Content 
 ## Troubleshooting
 
 ### Swift Package resolution fails
+
 **Problem**: Xcode cannot resolve `FastPixPlayerSDK`
 
 **Solution**:
@@ -190,6 +196,7 @@ If the feed shows "No ready videos found in your FastPix account" or a "Content 
 3. Re-resolve packages via **File → Packages → Resolve Package Versions**
 
 ### Videos not playing - "Content not Available"
+
 **Problem**: Reel feed shows an error or blank screen
 
 **Solution**:
@@ -199,6 +206,7 @@ If the feed shows "No ready videos found in your FastPix account" or a "Content 
 4. Re-check that the credentials are active in your [FastPix Dashboard](https://dashboard.fastpix.com) and are not expired or revoked
 
 ### Build fails on iOS 15 or earlier
+
 **Problem**: Compiler errors related to `PhotosPicker` or `NavigationStack`
 
 **Solution**:
@@ -263,11 +271,9 @@ Use the FastPix iOS Player SDK directly. See [Which FastPix repo do I need?](#wh
 ## License
 
 Reel App is released under the MIT License.
-
 ## Support
 
 For issues or questions:
-
 1. Check the [Troubleshooting](#troubleshooting) section above
 2. Review the [FastPix Documentation](https://fastpix.com/docs)
 3. Open an issue on [GitHub Issues](https://github.com/FastPix/demo-ios-reel-app/issues)
